@@ -1,0 +1,25 @@
+<section>
+	<div class="layout-wrap padding">
+		<h1>Group By Weight</h1>
+		<p>Visualize how many items are in a group via a dynamically-sized output</p>
+	</div>
+
+	<div id="flow" ng-controller="FlowCtrl" class="flex-row flex-nowrap">
+		<div class="unweighted flex-column">
+			<div ng-repeat="group in groups" class="flex-row" ng-style="{background: colors[$index]}">
+				<h1 ng-bind="group.name"></h1>
+				<input ng-model="group.weight" type="number" min="0" placeholder="0" />
+			</div>
+		</div>
+		<div class="flex-column">
+
+		</div>
+		<div class="weighted flex-column">
+			<div ng-repeat="group in groups" ng-style="{background: colors[$index], 'flex-grow': group.weight || 0}" class="flex-group">
+				<ul>
+					<li ng-repeat="item in items(group.weight) track by $index" ng-bind="item"></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>
