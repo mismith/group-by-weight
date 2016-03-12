@@ -7,41 +7,9 @@ body {
 	color: $darkest;
 	font: 15px/1.2 'Roboto', Helvetica, Arial, sans-serif;
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	font-weight: inherit;
-	text-transform: uppercase;
-}
-
-// classes
-.banner {
-	min-height: 75vh;
-}
-
-
-// sections
-#app {
-	min-height: 100%;
-}
-#header {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	height: $hh;
-	z-index: 500;
-}
-#main {
-	margin-top: $hh;
-}
-
 
 #flow {
-	height: 400px;
+	height: 100%;
 	border: solid 1px black;
 
 	> .flex-column {
@@ -56,6 +24,11 @@ h6 {
 			ul {
 				padding: 0;
 				margin: 0;
+			}
+		}
+		&.unweighted {
+			> * {
+				flex-shrink: 1;
 			}
 		}
 	}

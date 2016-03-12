@@ -145,59 +145,7 @@ angular.module('miUtil', []).run(["$rootScope", "$document", "$timeout", functio
 }]);
 'use strict';
 
-angular.module('group-by-weight', ['ui.router', 'ui.router.title', 'firebaseHelper']).
-//'miUtil',
-config(["$locationProvider", "$urlRouterProvider", "$urlMatcherFactoryProvider", "$stateProvider", "$firebaseHelperProvider", function ($locationProvider, $urlRouterProvider, $urlMatcherFactoryProvider, $stateProvider, $firebaseHelperProvider) {
-	// routing
-	$locationProvider.html5Mode(true).hashPrefix('!');
-	$urlRouterProvider.when('', '/');
-	$urlRouterProvider.when('home', '/');
-	$urlMatcherFactoryProvider.strictMode(false); // make trailing slashes optional
-
-	// pages
-	var pages = ['home'];
-	$stateProvider.state('main', {
-		abstract: true,
-		templateUrl: 'views/main.html'
-	}).state('page', {
-		parent: 'main',
-		url: '/{page:|' + pages.join('|') + '}',
-		templateUrl: function templateUrl($stateParams) {
-			return 'views/page/' + ($stateParams.page || 'home') + '.html';
-		},
-		resolve: {
-			$title: ["$stateParams", function $title($stateParams) {
-				switch ($stateParams.page) {
-					case '':
-					case 'home':
-						return '';
-					default:
-						return $stateParams.page[0].toUpperCase() + $stateParams.page.slice(1);
-				}
-			}]
-		}
-	})
-	// fallbacks
-	.state('404', {
-		parent: 'main',
-		templateUrl: 'views/page/404.html'
-	});
-	$urlRouterProvider.otherwise(function ($injector, $location) {
-		var $state = $injector.get('$state');
-		$state.go('404', null, { location: false });
-		return $location.path();
-	});
-
-	// data
-	$firebaseHelperProvider.namespace('XXXXXX');
-}]).controller('AppCtrl', ["$rootScope", "$state", function ($rootScope, $state) {
-	$rootScope.$state = $state;
-
-	$rootScope.menus = [{
-		name: 'Home',
-		sref: 'page({page: "", "#": ""})'
-	}];
-}]).controller('FlowCtrl', ["$scope", function ($scope) {
+angular.module('group-by-weight', []).controller('AppCtrl', ["$scope", function ($scope) {
 	$scope.items = function (qty) {
 		var a = [];
 		for (var i = 0; i < parseInt(qty) || 0; i++) {
