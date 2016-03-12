@@ -6,14 +6,12 @@
 
 	<div id="flow" ng-controller="FlowCtrl" class="flex-row flex-nowrap">
 		<div class="unweighted flex-column">
-			<div ng-repeat="group in groups" class="flex-row" ng-style="{background: colors[$index]}">
+			<div ng-repeat="group in groups" class="flex-row flex-justify-center" ng-style="{background: colors[$index]}">
 				<h1 ng-bind="group.name"></h1>
 				<input ng-model="group.weight" type="number" min="0" placeholder="0" />
 			</div>
 		</div>
-		<div class="flex-column">
-
-		</div>
+		<canvas id="canvas" class="flex-column"></canvas>
 		<div class="weighted flex-column">
 			<div ng-repeat="group in groups" ng-style="{background: colors[$index], 'flex-grow': group.weight || 0}" class="flex-group">
 				<ul>

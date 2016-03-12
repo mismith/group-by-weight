@@ -571,3 +571,10 @@ h6 {
         -ms-flex-negative: 1;
             flex-shrink: 1;
     overflow: auto; }
+  #flow #canvas {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-grow: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1; }

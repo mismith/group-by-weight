@@ -2,7 +2,7 @@ angular.module('group-by-weight', [
 	'ui.router',
 	'ui.router.title',
 	'firebaseHelper',
-	'miUtil',
+	//'miUtil',
 ])
 	.config(function ($locationProvider, $urlRouterProvider, $urlMatcherFactoryProvider, $stateProvider, $firebaseHelperProvider) {
 		// routing
@@ -69,22 +69,25 @@ angular.module('group-by-weight', [
 		};
 		$scope.groups = [
 			{
-				name: 'Group1',
+				name: 'Red',
 			},
 			{
-				name: 'Group2',
+				name: 'Orange',
 			},
 			{
-				name: 'Group3',
+				name: 'Yellow',
 			},
 			{
-				name: 'Group4',
+				name: 'Green',
 			},
 			{
-				name: 'Group5',
+				name: 'Blue',
 			},
 			{
-				name: 'Group6',
+				name: 'Indigo',
+			},
+			{
+				name: 'Violet',
 			},
 		];
 
@@ -94,6 +97,5 @@ angular.module('group-by-weight', [
 			for(var i = 0; i < 360; i += 360 / groups.length) {
 				$scope.colors.push(`hsl(${i}, ${90 + Math.random() * 10}%, ${50 + Math.random() * 10}%)`);
 			}
-			console.log($scope.colors);
 		});
 	});
