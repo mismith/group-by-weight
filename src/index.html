@@ -23,24 +23,49 @@
 <body>
 
 	<div id="flow" class="flex-row flex-nowrap">
-		<div class="unweighted flex-column">
-			<div ng-repeat="group in groups" class="flex-row flex-justify-center" ng-style="{background: colors[$index]}">
+		<div id="items" class="flex-column layout-scroll">
+			<div class="flex-column layout-scroll">
+				<div ng-repeat="item in items track by $index" ng-click="select($index, $event.shiftKey)" drag="{source: items, index: $index}" class="item flex-column" ng-class="{active: selected($index)}" ng-include="'item.html'">
+				</div>
+			</div>
+			<footer>
+				<input type="file" file-change="parseCSV($event.target.files)" accept="text/csv" />
+			</footer>
+		</div>
+		<div id="inputs" class="flex-column">
+			<div ng-repeat="group in groups | orderBy:'name' track by group.$id" id="input{{ group.$id }}" drag-drop="moveItem($data.source, $data.index, group.items)" class="input flex-row flex-justify-center flex-align-center" ng-style="{background: group.background || colors[group.$id]}">
 				<h1 ng-bind="group.name"></h1>
-				<input ng-model="group.weight" type="number" min="0" placeholder="0" />
 			</div>
 		</div>
-		<canvas id="canvas" class="flex-column"></canvas>
-		<div class="weighted flex-column">
-			<div ng-repeat="group in groups" ng-style="{background: colors[$index], 'flex-grow': group.weight || 0}" class="flex-group">
-				<ul>
-					<li ng-repeat="item in items(group.weight) track by $index" ng-bind="item"></li>
-				</ul>
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="flex-column">
+			<path ng-repeat="group in groups track by group.$id" ng-attr-fill="{{ group.background || colors[group.$id] }}" ng-attr-d="{{ weightByLength(group.$id) }}" />
+		</svg>
+		<div id="outputs" class="flex-column">
+			<div ng-repeat="group in groups | orderBy:'-$len' track by group.$id" id="output{{ group.$id }}" ng-style="{background: group.background || colors[group.$id], 'flex-grow': group.$len}" class="output flex-column layout-scroll">
+				<h1 ng-show="group.$len" ng-bind="len(group)"></h1>
+			</div>
+		</div>
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="flex-column">
+			<path ng-repeat="group in groups track by group.$id" ng-attr-fill="{{ group.background || colors[group.$id] }}" ng-attr-d="{{ weightBySum(group.$id) }}" />
+		</svg>
+		<div id="exputs" class="flex-column">
+			<div ng-repeat="group in groups | orderBy:'-$sum' track by group.$id" id="exput{{ group.$id }}" ng-style="{background: group.background || colors[group.$id], 'flex-grow': abs(group.$sum)}" class="exput flex-column layout-scroll">
+				<h1 ng-show="group.$sum" ng-bind="sum(group) | currency"></h1>
 			</div>
 		</div>
 	</div>
 
+	<script type="text/ng-template" id="item.html">
+		<h2 ng-bind="item.name"></h2>
+		<div class="flex-row">
+			<div class="flex-grow" ng-bind="item.date"></div>
+			<div ng-bind="item.amount | currency"></div>
+		</div>
+	</script>
+
 	<!-- Scripts -->
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+	<script src="//cdn.rawgit.com/gkindel/CSV-JS/v1.1.1/csv.js"></script>
 	<script src="assets/js/main.min.js?rev=1"></script>
 </body>
 </html>

@@ -8,37 +8,52 @@ body {
 	font: 15px/1.2 'Roboto', Helvetica, Arial, sans-serif;
 }
 
+.item {
+	padding: 5px;
+	margin: 0;
+
+	h2 {
+		margin: 0 0 10px 0;
+	}
+	&:not(:first-child) {
+		border-top: solid 1px $neutral;
+	}
+	&:hover {
+		background: rgba(0,0,0,.1);
+	}
+	&.active {
+		background-color: cyan;
+	}
+}
+.dragover {
+	background-image: linear-gradient(to top left, rgba(0,0,0,.1), rgba(0,0,0,.1)) !important;
+}
 #flow {
 	height: 100%;
-	border: solid 1px black;
 
 	> .flex-column {
-		height: 100%;
 		flex-grow: 1;
 
 		> * {
 			flex-grow: 1;
 			flex-shrink: 0;
-			min-height: 5px;
-
-			ul {
-				padding: 0;
-				margin: 0;
+		}
+		&#inputs {
+			> * {
+				padding: 10px;
 			}
 		}
-		&.unweighted {
+		&#outputs,
+		&#exputs {
 			> * {
 				flex-shrink: 1;
+				min-height: 5px;
+
+				ul {
+					padding: 0;
+					margin: 0;
+				}
 			}
 		}
-	}
-	.flex-group {
-		@extend .flex-column;
-		flex-shrink: 1;
-		overflow: auto;
-	}
-	#canvas {
-		display: flex;
-		flex-grow: 1;
 	}
 }
